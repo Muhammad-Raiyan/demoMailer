@@ -1,12 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var nodemailer = require('nodemailer')
-
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource')
-})
-
+let toEmail = 'raiyanishmam@yahoo.com'
 router.route('/send')
   .get((req, res) => {
     let transporter = nodemailer.createTransport({
@@ -22,11 +17,11 @@ router.route('/send')
 
     // setup email data with unicode symbols
     let mailOptions = {
-      from: '"Fred Foo 👻" <mislam0525@gmail.com>', // sender address
-      to: 'raiyanishmam@yahoo.com', // list of receivers
-      subject: 'Hello ✔', // Subject line
-      text: 'Hello world?', // plain text body
-      html: '<b>Hello world?</b>' // html body
+      from: '"Fred Foo 👻" <wup2emailer@gmail.com>', // sender address
+      to: toEmail, // list of receivers
+      subject: 'Account Verification', // Subject line
+      text: 'Verification key is: opensesame', // plain text body
+      html: '<b>Verification key is: opensesame</b>' // html body
     }
 
     // send mail with defined transport object
@@ -34,14 +29,10 @@ router.route('/send')
       if (error) {
         return console.log(error)
       }
-
-      console.log('Here')
-      // console.log('Message sent: %s', info.messageId)
-      // // Preview only available when sending through an Ethereal account
-      // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
-
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      res.send ({
+        status: "OK"
+      })
+      console.log('Message sent: %s', info.messageId)
     })
   })
 
